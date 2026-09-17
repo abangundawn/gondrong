@@ -85,8 +85,19 @@ body {
 
     /* 1. SEMBUNYIKAN APLIKASI PAKAI VISIBILITY (bukan display:none).
        display:none + absolute adalah pemicu halaman print kosong di Chrome & Samsung Internet HP.
-       Brave punya jalur render preview sendiri sehingga lolos — itu sebabnya cuma Brave yg aman. */
-    body > * { visibility: hidden !important; }
+       Brave punya jalur render preview sendiri sehingga lolos — itu sebabnya cuma Brave yg aman.
+       Tambahan height:0 dkk agar konten tak terlihat itu juga tidak makan halaman (tanpa ini
+       jadi halaman kosong berlembar-lembar). */
+    body > *:not(#print-area) {
+        visibility: hidden !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+    }
 
     /* 2. MUNCULKAN HANYA PRINT AREA */
     #print-area {
