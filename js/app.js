@@ -502,14 +502,8 @@ window.printReceipt = (id) => {
     const itemLines = (Array.isArray(tx.items) ? tx.items : []).map(i => {
         const qty = Number(i.qty) || 0;
         const nick = (i.nickname || i.name || 'ITEM').toString();
-        let variant = i.variant;
-        if (variant === 'null' || variant === null || variant === undefined) variant = '';
-        const line1raw = `${qty}x ${nick}${variant ? ` (${variant})` : ''}`.slice(0, W);
         const lineTotal = (Number(i.price) || 0) * qty;
-        let line2;
-        if (qty > 1) line2 = row(`  @${cleanRp(i.price)}`, cleanRp(lineTotal));
-        else line2 = row(' ', cleanRp(lineTotal));
-        return `${esc(pad(line1raw))}\n${line2}`;
+        return row(`${qty}x ${nick}`, cleanRp(lineTotal));
     }).join('\n');
     const nowPrint = new Date().toLocaleString('id-ID');
     // Cust + Queue satu baris, nomor rata kanan mentok kolom 30, tebal, tanpa label "Queue:"
@@ -523,7 +517,7 @@ window.printReceipt = (id) => {
         custQueueLine = esc('  ' + l + ' '.repeat(space)) + '<b>' + esc(r) + '</b>';
     }
     let receiptTop = '';
-    receiptTop += row('+', '+') + '\n\n'; // penanda sudut kiri-kanan atas, korban clipping PrintA
+    receiptTop += row('+', '+') + '\n'; // penanda sudut kiri-kanan atas, korban clipping PrintA
     receiptTop += centerBold(store) + '\n\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
     receiptTop += custQueueLine + '\n';
