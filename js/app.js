@@ -338,7 +338,7 @@ function renderQrisQr() {
         const qr = qrcode(0, 'M'); qr.addData(dyn); qr.make();
         elsPay.qrBox.innerHTML = qr.createSvgTag(6, 0);
         const svg = elsPay.qrBox.querySelector('svg');
-        if (svg) { svg.setAttribute('width', '264'); svg.setAttribute('height', '264'); }
+        if (svg) { svg.setAttribute('width', '300'); svg.setAttribute('height', '300'); }
     } catch (e) {
         console.warn('QR render fail:', e);
         elsPay.qrBox.innerHTML = '<p class="text-xs font-bold text-red-600 p-4">Gagal bikin QR,<br>pakai nominal manual</p>';
