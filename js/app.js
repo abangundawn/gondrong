@@ -523,7 +523,7 @@ window.printReceipt = (id) => {
         custQueueLine = esc('  ' + l + ' '.repeat(space)) + '<b>' + esc(r) + '</b>';
     }
     let receiptTop = '';
-    receiptTop += hr('-') + '\n\n'; // pelindung kepala + 1 baris kosong biar nama toko tak kena potong
+    receiptTop += row('+', '+') + '\n\n'; // penanda sudut kiri-kanan atas, korban clipping PrintA
     receiptTop += centerBold(store) + '\n\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
     receiptTop += custQueueLine + '\n';
@@ -549,7 +549,7 @@ window.printReceipt = (id) => {
     receiptBottom += center(CONFIG.RECEIPT_FOOTER || 'Terima Kasih') + '\n';
     receiptBottom += wrap(`ID:${tx.id}`) + '\n';
     receiptBottom += wrap(`Print:${nowPrint}`) + '\n';
-    receiptBottom += hr('-'); // pelindung kaki dari clipping aneh print service
+    receiptBottom += row('+', '+'); // penanda sudut kiri-kanan bawah, korban clipping PrintA
     const printArea = document.getElementById('print-area');
     printArea.innerHTML = `<div class="thermal-receipt"><pre>${receiptTop}</pre>${qrBlock}<pre>${receiptBottom}</pre></div>`;
     printArea.classList.add('receipt-mode'); // pakai @page receipt58 bila didukung browser
