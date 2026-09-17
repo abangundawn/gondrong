@@ -117,4 +117,4 @@ Contoh menu dengan varian:
 
 * Simpan data ke IndexedDB atau database server.
 * Fitur login kasir & owner.
-* Mode offline penuh (PWA).
+* Mode offline penuh (PWA). ✅ done via `sw.js` (cache network-first)
