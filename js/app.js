@@ -523,7 +523,7 @@ window.printReceipt = (id) => {
         custQueueLine = esc('  ' + l + ' '.repeat(space)) + '<b>' + esc(r) + '</b>';
     }
     let receiptTop = '';
-    receiptTop += hr('-') + '\n'; // pelindung kepala dari clipping aneh print service
+    receiptTop += hr('-') + '\n\n'; // pelindung kepala + 1 baris kosong biar nama toko tak kena potong
     receiptTop += centerBold(store) + '\n';
     receiptTop += hr('=') + '\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
