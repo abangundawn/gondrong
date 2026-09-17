@@ -524,8 +524,7 @@ window.printReceipt = (id) => {
     }
     let receiptTop = '';
     receiptTop += hr('-') + '\n\n'; // pelindung kepala + 1 baris kosong biar nama toko tak kena potong
-    receiptTop += centerBold(store) + '\n';
-    receiptTop += hr('=') + '\n';
+    receiptTop += centerBold(store) + '\n\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
     receiptTop += custQueueLine + '\n';
     receiptTop += hr('=') + '\n';
