@@ -556,8 +556,17 @@ window.printReceipt = (id) => {
     printArea.classList.add('receipt-mode'); // pakai @page receipt58 bila didukung browser
     const cleanup = () => { printArea.innerHTML = ''; printArea.classList.remove('receipt-mode'); window.removeEventListener('afterprint', cleanup); };
     window.addEventListener('afterprint', cleanup);
-    // panggil langsung (tanpa setTimeout) agar aktivasi gestur pengguna tidak kedaluwarsa di browser HP
-    window.print();
+    // Tunggu gambar QR selesai di-decode dulu baru print (kalau langsung, pratinjau ke-snapshot duluan -> QR blank)
+    const qrImg = printArea.querySelector('.thermal-receipt img');
+    const doPrint = () => window.print();
+    if (qrImg && !qrImg.complete) {
+        let printed = false;
+        const go = () => { if (!printed) { printed = true; doPrint(); } };
+        qrImg.onload = go; qrImg.onerror = go;
+        setTimeout(go, 1500);
+    } else {
+        doPrint();
+    }
     setTimeout(() => { if (printArea.innerHTML) cleanup(); }, 5000);
 };
 function getNoteParts() { return els.note.value.split(',').map(s => s.trim()).filter(Boolean); }
