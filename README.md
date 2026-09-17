@@ -17,6 +17,7 @@ BeByte adalah aplikasi kasir berbasis web untuk usaha F&B. Dibangun dengan **HTM
 * Backup/restore database via JSON.
 * Notifikasi Discord (order masuk, dine-in, pesanan selesai).
 * Identitas toko terpusat di `js/data.js` (nama, event, tagline, versi, maskot).
+* **PWA** — bisa di-install ke HP/tablet/PC (fullscreen kayak aplikasi) + tetap jalan saat offline via `sw.js`.
 
 ## 📂 Struktur Proyek
 
@@ -38,6 +39,8 @@ BeByte adalah aplikasi kasir berbasis web untuk usaha F&B. Dibangun dengan **HTM
 │  ├─ discord.js  # kirim notif ke Discord webhook
 │  ├─ qris.js     # statis → dinamis (EMVCo + CRC16)
 │  └─ report.js   # simpan/hitung laporan (localStorage)
+├─ manifest.json  # identitas PWA (nama, ikon, tema)
+├─ sw.js          # service worker (install + offline)
 └─ index.html
 ```
 
@@ -52,6 +55,15 @@ python3 -m http.server 8888
 ```
 
 Alternatif: aplikasi [Simple Web Server](https://simplewebserver.org/) atau extension **Live Server** (auto-refresh saat pengembangan).
+
+## 📲 Install sebagai Aplikasi (PWA)
+
+Buka URL hosting-nya (misal GitHub Pages, wajib **https**) di Chrome/Edge, lalu:
+
+* PC: klik ikon **Install** di address bar.
+* HP/tablet: titik 3 → **Install app** / **Add to Home screen**.
+
+Aplikasi jalan fullscreen tanpa address bar. Strategi cache `network-first`: selama online selalu versi terbaru, saat offline pakai versi terakhir yang tersimpan. Setiap rilis naikkan `CACHE_NAME` di `sw.js` (`bebyte-v1` → `v2`, dst).
 
 ## 🔄 Alur Kasir
 
