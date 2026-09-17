@@ -26,11 +26,10 @@ BeByte adalah aplikasi kasir berbasis web untuk usaha F&B. Dibangun dengan **HTM
 ├─ assets/
 │  ├─ bebyte-logo.png
 │  ├─ bebyte-mascot.png
-│  ├─ cilokahh.jpg
-│  ├─ enoki.jpg
-│  ├─ eslumut.jpg
-│  ├─ stickymilk.jpg
-│  └─ ubiunguahh.jpg
+│  ├─ icon-192.png / icon-512.png / icon-180.png (PWA)
+│  ├─ sup.jpg / nasi.jpg / ayam.jpg / ikan.jpg
+│  ├─ mie.jpg / snacks.jpg / gorengan.jpg
+│  └─ teh.jpg / kopi.jpg / es.jpg / jus.jpg / sup-buah.jpg / bandrek.jpg
 ├─ css/
 │  └─ style.css
 ├─ js/
