@@ -13,12 +13,17 @@ export const CONFIG = {
 export const MENU = [
   // ===== SUP =====
   { id: 1, name: 'Sup Ayam Mantap', nickname: 'SUPTAP 🍲', desc: 'Sup ayam mantap, kuah gurih nagih', price: 20000, category: 'Sup', img: './assets/sup.jpg', variants: null, active: true },
-  { id: 2, name: 'Sup Ayam Sehat', nickname: 'SUPHAT 💪', desc: 'Sup ayam sehat, isi komplit', price: 30000, category: 'Sup', img: './assets/sup.jpg', variants: null, active: true },
-  { id: 3, name: 'Sup Daging Sehat', nickname: 'SUPGING 🥩', desc: 'Sup daging sehat, empuk bergizi', price: 30000, category: 'Sup', img: './assets/sup.jpg', variants: null, active: true },
+  {
+    id: 52, name: 'Sup Sehat', desc: 'Sup sehat bergizi', price: 30000, category: 'Sup', img: './assets/sup-sehat.jpg', active: true,
+    variants: [
+      { name: 'Ayam Sehat', nickname: 'SUPHAT 💪', desc: 'Sup ayam sehat, isi komplit', active: true },
+      { name: 'Daging Sehat', nickname: 'SUPGING 🥩', desc: 'Sup daging sehat, empuk bergizi', active: true }
+    ]
+  },
   // ===== NASI =====
   { id: 4, name: 'Nasi Putih', nickname: 'NASPUT 🍚', desc: 'Nasi putih hangat', price: 3000, category: 'Nasi', img: './assets/nasi.jpg', variants: null, active: true },
-  { id: 5, name: 'Nasi Tumpeng', nickname: 'TUMPENG 🎉', desc: 'Nasi tumpeng komplit buat acara', price: 30000, category: 'Nasi', img: './assets/nasi.jpg', variants: null, active: true },
-  { id: 6, name: 'Nasi Goreng', nickname: 'NASGOR 🔥', desc: 'Nasi goreng spesial', price: 17000, category: 'Nasi', img: './assets/nasi.jpg', variants: null, active: true },
+  { id: 5, name: 'Nasi Tumpeng', nickname: 'TUMPENG 🎉', desc: 'Nasi tumpeng komplit buat acara', price: 30000, category: 'Nasi', img: './assets/nasi-tumpeng.jpg', variants: null, active: true },
+  { id: 6, name: 'Nasi Goreng', nickname: 'NASGOR 🔥', desc: 'Nasi goreng spesial', price: 17000, category: 'Nasi', img: './assets/nasi-goreng.jpg', variants: null, active: true },
   // ===== AYAM =====
   {
     id: 46, name: 'Ayam', desc: 'Aneka olahan ayam', price: 18000, category: 'Ayam', img: './assets/ayam.jpg', active: true,
@@ -29,7 +34,7 @@ export const MENU = [
   },
   // ===== IKAN =====
   { id: 9, name: 'Ikan Asam Manis', nickname: 'ASMAN 🐟', desc: 'Ikan asam manis segar', price: 25000, category: 'Ikan', img: './assets/ikan.jpg', variants: null, active: true },
-  { id: 10, name: 'Pecel Lele', nickname: 'PECLE 🐠', desc: 'Pecel lele + sambal + lalapan', price: 18000, category: 'Ikan', img: './assets/ikan.jpg', variants: null, active: true },
+  { id: 10, name: 'Pecel Lele', nickname: 'PECLE 🐠', desc: 'Pecel lele + sambal + lalapan', price: 18000, category: 'Ikan', img: './assets/pecel-lele.jpg', variants: null, active: true },
   // ===== MIE =====
   {
     id: 47, name: 'Mie', desc: 'Aneka mie', price: 15000, category: 'Mie', img: './assets/mie.jpg', active: true,
@@ -43,26 +48,36 @@ export const MENU = [
     ]
   },
   // ===== SNACKS =====
-  { id: 17, name: 'Ceker Pedas', nickname: 'CEKER 🔥', desc: 'Ceker pedas nampol', price: 10000, category: 'Snacks', img: './assets/snacks.jpg', variants: null, active: true },
-  { id: 18, name: 'Tahu Pong', nickname: 'TAHUPONG', desc: 'Tahu pong kopong gurih', price: 10000, category: 'Snacks', img: './assets/snacks.jpg', variants: null, active: true },
-  { id: 19, name: 'Perkedel Kentang', nickname: 'PERKEDEL 🥔', desc: 'Perkedel kentang gurih', price: 3000, category: 'Snacks', img: './assets/snacks.jpg', variants: null, active: true },
-  { id: 20, name: 'Tempe Bacem', nickname: 'BACEM 🍯', desc: 'Tempe bacem manis legit', price: 5000, category: 'Snacks', img: './assets/snacks.jpg', variants: null, active: true },
-  { id: 21, name: 'Risol', nickname: 'RISOL 🥐', desc: 'Risol isi creamy', price: 10000, category: 'Snacks', img: './assets/snacks.jpg', variants: null, active: true },
+  {
+    id: 53, name: 'Snacks Sultan', desc: 'Snack sultan favorit', price: 10000, category: 'Snacks', img: './assets/snacks.jpg', active: true,
+    variants: [
+      { name: 'Ceker Pedas', nickname: 'CEKER 🔥', desc: 'Ceker pedas nampol', active: true },
+      { name: 'Tahu Pong', nickname: 'TAHUPONG', desc: 'Tahu pong kopong gurih', active: true },
+      { name: 'Risol', nickname: 'RISOL 🥐', desc: 'Risol isi creamy', active: true }
+    ]
+  },
+  { id: 19, name: 'Perkedel Kentang', nickname: 'PERKEDEL 🥔', desc: 'Perkedel kentang gurih', price: 3000, category: 'Snacks', img: './assets/perkedel.jpg', variants: null, active: true },
+  { id: 20, name: 'Tempe Bacem', nickname: 'BACEM 🍯', desc: 'Tempe bacem manis legit', price: 5000, category: 'Snacks', img: './assets/tempe-bacem.jpg', variants: null, active: true },
   // ===== GORENGAN =====
   { id: 22, name: 'Gorengan', nickname: 'GORENGAN 🍤', desc: 'Gorengan aneka, hitung per biji', price: 1000, category: 'Gorengan', img: './assets/gorengan.jpg', variants: null, active: true, custom_qty: true },
   // ===== TEH =====
   { id: 23, name: 'Teh Manis Panas', nickname: 'TEHPAN 🍵', desc: 'Teh manis panas', price: 5000, category: 'Teh', img: './assets/teh.jpg', variants: null, active: true },
-  { id: 24, name: 'Teh Manis Dingin', nickname: 'TEHDING 🧊', desc: 'Teh manis dingin segar', price: 6000, category: 'Teh', img: './assets/teh.jpg', variants: null, active: true },
-  { id: 25, name: 'Teh Serai Rempah', nickname: 'SEREH 🌿', desc: 'Teh serai rempah hangat', price: 10000, category: 'Teh', img: './assets/teh.jpg', variants: null, active: true },
-  { id: 26, name: 'Lemon Tea', nickname: 'LEMONTEA 🍋', desc: 'Lemon tea segar', price: 10000, category: 'Teh', img: './assets/teh.jpg', variants: null, active: true },
-  { id: 27, name: 'Teh Susu Telor', nickname: 'TST 🥛', desc: 'Teh susu telor khas', price: 15000, category: 'Teh', img: './assets/teh.jpg', variants: null, active: true },
-  { id: 28, name: 'TST Pinang Muda', nickname: 'PINANG 🥥', desc: 'TST pinang muda jos', price: 30000, category: 'Teh', img: './assets/teh.jpg', variants: null, active: true },
-  { id: 29, name: 'Teh Hijau Sanger', nickname: 'SANGER 🍵', desc: 'Teh hijau sanger', price: 10000, category: 'Teh', img: './assets/teh.jpg', variants: null, active: true },
+  { id: 24, name: 'Teh Manis Dingin', nickname: 'TEHDING 🧊', desc: 'Teh manis dingin segar', price: 6000, category: 'Teh', img: './assets/teh-dingin.jpg', variants: null, active: true },
+  {
+    id: 51, name: 'Teh Kekinian', desc: 'Teh kekinian segar', price: 10000, category: 'Teh', img: './assets/teh-kekinian.jpg', active: true,
+    variants: [
+      { name: 'Serai Rempah', nickname: 'SEREH 🌿', desc: 'Teh serai rempah hangat', active: true },
+      { name: 'Lemon Tea', nickname: 'LEMONTEA 🍋', desc: 'Lemon tea segar', active: true },
+      { name: 'Hijau Sanger', nickname: 'SANGER 🍵', desc: 'Teh hijau sanger', active: true }
+    ]
+  },
+  { id: 27, name: 'Teh Susu Telor', nickname: 'TST 🥛', desc: 'Teh susu telor khas', price: 15000, category: 'Teh', img: './assets/tst.jpg', variants: null, active: true },
+  { id: 28, name: 'TST Pinang Muda', nickname: 'PINANG 🥥', desc: 'TST + pinang muda berkhasiat', price: 30000, category: 'Teh', img: './assets/tst-pinang-muda.jpg', variants: null, active: true },
   // ===== KOPI =====
   { id: 30, name: 'Kopi Hitam', nickname: 'KOPIHIT ☕', desc: 'Kopi hitam pekat', price: 5000, category: 'Kopi', img: './assets/kopi.jpg', variants: null, active: true },
-  { id: 31, name: 'Kopi Dingin', nickname: 'KOPDING 🧊', desc: 'Kopi dingin segar', price: 7000, category: 'Kopi', img: './assets/kopi.jpg', variants: null, active: true },
-  { id: 32, name: 'Cappuccino', nickname: 'CAPPU ☕', desc: 'Cappuccino creamy', price: 10000, category: 'Kopi', img: './assets/kopi.jpg', variants: null, active: true },
-  { id: 33, name: 'Kopi Susu', nickname: 'KOPSUS 🥛', desc: 'Kopi susu lembut', price: 10000, category: 'Kopi', img: './assets/kopi.jpg', variants: null, active: true },
+  { id: 31, name: 'Kopi Dingin', nickname: 'KOPDING 🧊', desc: 'Kopi dingin segar', price: 7000, category: 'Kopi', img: './assets/kopi-dingin.jpg', variants: null, active: true },
+  { id: 32, name: 'Cappuccino', nickname: 'CAPPU ☕', desc: 'Cappuccino creamy', price: 10000, category: 'Kopi', img: './assets/cappuccino.jpg', variants: null, active: true },
+  { id: 33, name: 'Kopi Susu', nickname: 'KOPSUS 🥛', desc: 'Kopi susu lembut', price: 10000, category: 'Kopi', img: './assets/kopi-susu.jpg', variants: null, active: true },
   // ===== ES KEKINIAN =====
   {
     id: 48, name: 'Es Kekinian', desc: 'Es kekinian segar', price: 10000, category: 'Es Kekinian', img: './assets/es.jpg', active: true,
