@@ -523,13 +523,14 @@ window.printReceipt = (id) => {
         custQueueLine = esc('  ' + l + ' '.repeat(space)) + '<b>' + esc(r) + '</b>';
     }
     let receiptTop = '';
+    receiptTop += hr('-') + '\n'; // pelindung kepala dari clipping aneh print service
     receiptTop += centerBold(store) + '\n';
     receiptTop += hr('=') + '\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
     receiptTop += custQueueLine + '\n';
     receiptTop += hr('=') + '\n';
     receiptTop += itemLines + '\n';
-    receiptTop += hr('-') + '\n';
+    receiptTop += hr('+') + '\n';
     receiptTop += rowBold('Total:', cleanRp(total)) + '\n';
     const isQrisPaid = !isUnpaidTx && method === 'QRIS';
     if (isUnpaidTx) {
@@ -549,6 +550,7 @@ window.printReceipt = (id) => {
     receiptBottom += center(CONFIG.RECEIPT_FOOTER || 'Terima Kasih') + '\n';
     receiptBottom += wrap(`ID:${tx.id}`) + '\n';
     receiptBottom += wrap(`Print:${nowPrint}`) + '\n';
+    receiptBottom += hr('-'); // pelindung kaki dari clipping aneh print service
     const printArea = document.getElementById('print-area');
     printArea.innerHTML = `<div class="thermal-receipt"><pre>${receiptTop}</pre>${qrBlock}<pre>${receiptBottom}</pre></div>`;
     printArea.classList.add('receipt-mode'); // pakai @page receipt58 bila didukung browser
