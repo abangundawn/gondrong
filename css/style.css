@@ -75,16 +75,27 @@ body {
     @page { 
         size: A4; 
         margin: 10mm; 
-    } 
+    }
+    /* Kertas resi 58mm (dipakai bila #print-area punya class receipt-mode).
+       Browser yg tidak mendukung named-page akan abaikan dan pakai A4. */
+    @page receipt58 {
+        size: 58mm auto;
+        margin: 0;
+    }
 
-    /* 1. HILANGKAN SELURUH APLIKASI DARI KERTAS */
-    body > * { display: none !important; }
+    /* 1. SEMBUNYIKAN APLIKASI PAKAI VISIBILITY (bukan display:none).
+       display:none + absolute adalah pemicu halaman print kosong di Chrome & Samsung Internet HP.
+       Brave punya jalur render preview sendiri sehingga lolos — itu sebabnya cuma Brave yg aman. */
+    body > * { visibility: hidden !important; }
 
     /* 2. MUNCULKAN HANYA PRINT AREA */
     #print-area {
+        visibility: visible !important;
         display: block !important;
         position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0;
     }
+    #print-area * { visibility: visible !important; }
+    #print-area.receipt-mode { page: receipt58; }
 
     /* 3. RESET HTML/BODY */
     html, body {

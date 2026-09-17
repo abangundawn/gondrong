@@ -551,13 +551,12 @@ window.printReceipt = (id) => {
     receiptBottom += wrap(`Print:${nowPrint}`) + '\n';
     const printArea = document.getElementById('print-area');
     printArea.innerHTML = `<div class="thermal-receipt"><pre>${receiptTop}</pre>${qrBlock}<pre>${receiptBottom}</pre></div>`;
-    // Override @page khusus resi 58mm (hapus otomatis setelah print)
-    let tmpStyle = document.getElementById('tmp-receipt-page');
-    if (!tmpStyle) { tmpStyle = document.createElement('style'); tmpStyle.id = 'tmp-receipt-page'; document.head.appendChild(tmpStyle); }
-    tmpStyle.innerHTML = '@media print { @page { size: 58mm auto; margin: 0; } }';
-    const cleanup = () => { printArea.innerHTML = ''; if (tmpStyle) tmpStyle.remove(); window.removeEventListener('afterprint', cleanup); };
+    printArea.classList.add('receipt-mode'); // pakai @page receipt58 bila didukung browser
+    const cleanup = () => { printArea.innerHTML = ''; printArea.classList.remove('receipt-mode'); window.removeEventListener('afterprint', cleanup); };
     window.addEventListener('afterprint', cleanup);
-    setTimeout(() => { window.print(); setTimeout(() => { if (document.getElementById('tmp-receipt-page')) cleanup(); }, 1000); }, 100);
+    // panggil langsung (tanpa setTimeout) agar aktivasi gestur pengguna tidak kedaluwarsa di browser HP
+    window.print();
+    setTimeout(() => { if (printArea.innerHTML) cleanup(); }, 5000);
 };
 function getNoteParts() { return els.note.value.split(',').map(s => s.trim()).filter(Boolean); }
 function refreshNoteChips() {
