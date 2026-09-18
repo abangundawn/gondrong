@@ -1,7 +1,7 @@
 {
-  "name": "BeByte - Order System",
-  "short_name": "BeByte",
-  "description": "Aplikasi kasir BeByte",
+  "name": "D`Abi Coffee & Resto - Order System",
+  "short_name": "D`Abi",
+  "description": "Aplikasi kasir D`Abi Coffee & Resto",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

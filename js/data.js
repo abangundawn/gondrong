@@ -1,9 +1,9 @@
 export const CONFIG = {
   WEBHOOK_URL: 'https://discordapp.com/api/webhooks/1549712999718064189/OruERz20gxzaYDHGLzBl6iDPa0tvtDhPCyrQTST_Q9Uuyx_XLJ9ioNjsxpcdcPyfFOPQ', 
-  STORE_NAME: 'D`Abi Coffe & Resto',
-  EVENT_NAME: 'D`Abi Cofee & Resto🎉🚀',
+  STORE_NAME: 'D`Abi Coffee & Resto',
+  EVENT_NAME: 'D`Abi Coffee & Resto🎉🚀',
   TAG_LINE: '🛋️Nongkrong 🍽️Makan 🥤Minum 🎤Karaoke 🎮Mabar 📺Nobar 📶Free WiFi',
-  VERSION: 'BeByte - 2026',
+  VERSION: '2026',
   MASCOT: 'assets/qr.dc.d-abi.png',
   LOGO: 'assets/d-abi-logo.png',
   RECEIPT_FOOTER: '-= Terima Kasih =-',
