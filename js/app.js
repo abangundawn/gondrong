@@ -598,7 +598,7 @@ els.note.addEventListener('input', () => { toggleNoteClear(); refreshNoteChips()
 window.toggleFullscreen = () => { playSound('click'); if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(e=>console.log(e)); else if (document.exitFullscreen) document.exitFullscreen(); };
 
 document.addEventListener('keydown', (e) => {
-    if (e.key === "Escape") { els.modalVariant.classList.add('hidden'); elsPay.modal.classList.add('hidden'); elsQty.modal.classList.add('hidden'); elsEdit.modal.classList.add('hidden'); els.alertModal.classList.add('hidden'); els.modalReport.classList.add('hidden'); }
+    if (e.key === "Escape") { els.modalVariant.classList.add('hidden'); elsPay.modal.classList.add('hidden'); elsQty.modal.classList.add('hidden'); elsEdit.modal.classList.add('hidden'); els.alertModal.classList.add('hidden'); els.modalReport.classList.add('hidden'); const _tm = document.getElementById('modal-theme'); if (_tm && !_tm.classList.contains('hidden')) window.closeTheme(); }
     if (e.key === "F2") { e.preventDefault(); els.custName.focus(); }
 });
 window.addEventListener('beforeunload', (e) => { if (cart.length > 0) { e.preventDefault(); e.returnValue = ''; } });
@@ -614,6 +614,43 @@ window.addEventListener('online', updateOnlineStatus); window.addEventListener('
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
     window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(e => console.warn('SW fail', e)); });
 }
+
+// --- TEMA (ganti palet warna seluruh aplikasi) ---
+const THEMES = [
+    { id: 'bebyte',     name: 'BeByte',      icon: '💜', desc: 'Ungu kuning bawaan',      c: { purple: '#6D28D9', yellow: '#FFE100', dark: '#2e1065', green: '#4ade80', red: '#DC2626' } },
+    { id: 'merahputih', name: 'Merah Putih', icon: '🇮🇩', desc: 'Semarak tujuhbelasan',     c: { purple: '#B91C1C', yellow: '#FFFFFF', dark: '#450A0A', green: '#22C55E', red: '#7F1D1D' } },
+    { id: 'mint',        name: 'Mint',        icon: '🌿', desc: 'Natural & religius',       c: { purple: '#047857', yellow: '#D1FAE5', dark: '#064E3B', green: '#34D399', red: '#B91C1C' } },
+    { id: 'cappuccino',  name: 'Cappuccino',  icon: '☕', desc: 'Pas buat pameran kopi',    c: { purple: '#6F4E37', yellow: '#EFE3CE', dark: '#3B2314', green: '#84A98D', red: '#9D0208' } },
+    { id: 'ocean',       name: 'Ocean',       icon: '🌊', desc: 'Biru segar',               c: { purple: '#0369A1', yellow: '#E0F2FE', dark: '#082F49', green: '#4ADE80', red: '#DC2626' } },
+    { id: 'bluematrix',  name: 'Blue Matrix', icon: '💠', desc: 'Biru neon stabilo',        c: { purple: '#1D4ED8', yellow: '#22D3EE', dark: '#082F49', green: '#A3E635', red: '#F43F5E' } }
+];
+function currentThemeId() { return (THEMES.some(t => t.id === document.documentElement.dataset.theme) ? document.documentElement.dataset.theme : 'bebyte'); }
+function applyTheme(id) {
+    if (!THEMES.some(t => t.id === id)) id = 'bebyte';
+    document.documentElement.dataset.theme = id;
+    try { localStorage.setItem('bebyte_theme', id); } catch (e) {}
+    renderThemeGrid();
+}
+function renderThemeGrid() {
+    const grid = document.getElementById('theme-grid');
+    if (!grid) return;
+    const active = currentThemeId();
+    grid.innerHTML = THEMES.map(t => {
+        const isActive = t.id === active;
+        const sw = [t.c.purple, t.c.yellow, t.c.green, t.c.red].map(h => `<span class="w-6 h-6 rounded-full border-2 border-black inline-block" style="background:${h}"></span>`).join('');
+        return `<button onclick="applyTheme('${t.id}')" class="text-left bg-white border-4 ${isActive ? 'border-black shadow-[4px_4px_0px_0px_black]' : 'border-gray-300'} rounded-xl p-3 hover:translate-y-[1px] transition active:scale-95">
+            <div class="text-3xl mb-1">${t.icon}</div>
+            <div class="font-black text-sm uppercase">${isActive ? '✅ ' : ''}${t.name}</div>
+            <div class="text-[10px] font-bold text-gray-500 mb-2">${t.desc}</div>
+            <div class="flex gap-1">${sw}</div>
+        </button>`;
+    }).join('');
+}
+window.applyTheme = (id) => { playSound('click'); applyTheme(id); };
+window.openTheme = () => { playSound('click'); renderThemeGrid(); const m = document.getElementById('modal-theme'); m.classList.remove('hidden'); m.classList.add('flex'); };
+window.closeTheme = () => { playSound('click'); const m = document.getElementById('modal-theme'); m.classList.add('hidden'); m.classList.remove('flex'); };
+document.getElementById('btn-theme').addEventListener('click', window.openTheme);
+document.getElementById('close-theme').addEventListener('click', window.closeTheme);
 
 // --- HERO DARI CONFIG (data.js) ---
 (function bindHero() {
@@ -632,7 +669,7 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
     if (adminLogo && CONFIG.LOGO) adminLogo.src = CONFIG.LOGO;
 })();
 
-renderMenu(); updateCart(); renderUnpaidList(); refreshNoteChips();
+renderMenu(); updateCart(); renderUnpaidList(); refreshNoteChips(); renderThemeGrid();
 // Pulihkan indikator resume kalau reload saat hold lagi dibuka
 (function restoreResume() {
     if (!activeUnpaidId) return;

@@ -1,6 +1,6 @@
 // Service Worker BeByte — bikin bisa di-install (PWA) + tetap segar saat online.
 // NAIKKAN CACHE_NAME (v1 -> v2 dst) setiap rilis agar klien langsung ambil versi baru.
-const CACHE_NAME = 'bebyte-v1';
+const CACHE_NAME = 'bebyte-v2';
 const CORE_ASSETS = [
   './', './index.html', './manifest.json',
   './css/style.css',

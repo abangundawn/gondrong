@@ -5,7 +5,31 @@
     --bebyte-yellow: #FFE100;
     --bebyte-dark: #2e1065;
     --bebyte-green: #4ade80;
+    --bebyte-red: #DC2626;
 }
+/* --- PALET TEMA (ganti via <html data-theme="...">, tersimpan di localStorage) --- */
+:root, :root[data-theme="bebyte"] { --bebyte-purple: #6D28D9; --bebyte-yellow: #FFE100; --bebyte-dark: #2e1065; --bebyte-green: #4ade80; --bebyte-red: #DC2626; }
+:root[data-theme="merahputih"] { --bebyte-purple: #B91C1C; --bebyte-yellow: #FFFFFF; --bebyte-dark: #450A0A; --bebyte-green: #22C55E; --bebyte-red: #7F1D1D; }
+:root[data-theme="mint"] { --bebyte-purple: #047857; --bebyte-yellow: #D1FAE5; --bebyte-dark: #064E3B; --bebyte-green: #34D399; --bebyte-red: #B91C1C; }
+:root[data-theme="cappuccino"] { --bebyte-purple: #6F4E37; --bebyte-yellow: #EFE3CE; --bebyte-dark: #3B2314; --bebyte-green: #84A98D; --bebyte-red: #9D0208; }
+:root[data-theme="ocean"] { --bebyte-purple: #0369A1; --bebyte-yellow: #E0F2FE; --bebyte-dark: #082F49; --bebyte-green: #4ADE80; --bebyte-red: #DC2626; }
+:root[data-theme="bluematrix"] { --bebyte-purple: #1D4ED8; --bebyte-yellow: #22D3EE; --bebyte-dark: #082F49; --bebyte-green: #A3E635; --bebyte-red: #F43F5E; }
+
+/* --- WARNA DANGER (UNPAID dkk) MENGIKUTI TEMA --- */
+html[data-theme] .bg-red-600, html[data-theme] .bg-red-500 { background-color: var(--bebyte-red); }
+html[data-theme] .bg-red-700, html[data-theme] .bg-red-900 { background-color: var(--bebyte-red); }
+html[data-theme] .bg-red-200 { background-color: color-mix(in srgb, var(--bebyte-red) 20%, white); }
+html[data-theme] .bg-red-100 { background-color: color-mix(in srgb, var(--bebyte-red) 12%, white); }
+html[data-theme] .bg-red-50 { background-color: color-mix(in srgb, var(--bebyte-red) 7%, white); }
+html[data-theme] .text-red-600, html[data-theme] .text-red-500,
+html[data-theme] .text-red-400, html[data-theme] .text-red-800 { color: var(--bebyte-red); }
+html[data-theme] .border-red-600, html[data-theme] .border-red-500 { border-color: var(--bebyte-red); }
+html[data-theme] .border-red-200 { border-color: color-mix(in srgb, var(--bebyte-red) 30%, white); }
+html[data-theme] .hover\:bg-red-500:hover { background-color: var(--bebyte-red); }
+html[data-theme] .hover\:bg-red-700:hover, html[data-theme] .hover\:bg-red-900:hover { background-color: var(--bebyte-red); }
+html[data-theme] .hover\:bg-red-50:hover { background-color: color-mix(in srgb, var(--bebyte-red) 7%, white); }
+html[data-theme] .hover\:text-red-800:hover, html[data-theme] .hover\:text-red-600:hover,
+html[data-theme] .hover\:text-red-500:hover, html[data-theme] .hover\:text-red-400:hover { color: var(--bebyte-red); }
 
 /* TOUCH & TABLET OPTIMIZATIONS */
 * {

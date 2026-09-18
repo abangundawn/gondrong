@@ -18,6 +18,7 @@ BeByte adalah aplikasi kasir berbasis web untuk usaha F&B. Dibangun dengan **HTM
 * Notifikasi Discord (order masuk, dine-in, pesanan selesai).
 * Identitas toko terpusat di `js/data.js` (nama, event, tagline, versi, maskot).
 * **PWA** — bisa di-install ke HP/tablet/PC (fullscreen kayak aplikasi) + tetap jalan saat offline via `sw.js`.
+* **6 tema warna** — BeByte, Merah Putih 🇮🇩, Mint 🌿, Cappuccino ☕, Ocean 🌊, Blue Matrix 💠. Ganti lewat tombol 🎨 Tema, tersimpan per perangkat. Palet diatur di `:root[data-theme]` (`css/style.css`), warna danger (UNPAID) ikut tema.
 
 ## 📂 Struktur Proyek
 

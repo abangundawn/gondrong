@@ -15,12 +15,14 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('bebyte_theme')||'bebyte';}catch(e){}</script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            bebyte: { purple: '#6D28D9', yellow: '#FFE100', dark: '#1e1b4b', green: '#4ade80' }
+            /* var() agar ganti tema cukup ubah :root di css/style.css */
+            bebyte: { purple: 'var(--bebyte-purple, #6D28D9)', yellow: 'var(--bebyte-yellow, #FFE100)', dark: 'var(--bebyte-dark, #2e1065)', green: 'var(--bebyte-green, #4ade80)' }
           },
           fontFamily: { sans: ['Fredoka', 'sans-serif'], display: ['Bangers', 'cursive'] },
           animation: {
@@ -51,6 +53,7 @@
       <div class="flex gap-2 items-center">
           <div id="status-dot" class="w-4 h-4 rounded-full bg-green-500 border-2 border-white shadow shadow-black transition-colors" title="Online"></div>
           <button id="btn-stock-mode" onclick="toggleStockMode()" class="bg-bebyte-purple text-white border-2 border-black px-3 py-1 font-bold text-sm shadow-[3px_3px_0px_0px_black] hover:translate-y-[2px] rounded-lg transition active:scale-95">📦 Stok</button>
+          <button id="btn-theme" class="bg-white border-2 border-black px-3 py-1 font-bold text-sm shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] rounded-lg transition-all active:scale-95">🎨 Tema</button>
           <button id="btn-report" class="bg-white border-2 border-black px-3 py-1 font-bold text-sm shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] rounded-lg transition-all active:scale-95">🔒 Admin</button>
           <button onclick="toggleFullscreen()" class="bg-black text-white border-2 border-white px-3 py-1 font-bold text-sm rounded-lg ml-2 hover:bg-gray-800 active:scale-95" title="Fullscreen Mode">⛶</button>
       </div>
@@ -287,6 +290,19 @@
   </div>
 
   <div id="print-area" class="hidden"></div>
+
+  <div id="modal-theme" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[110] backdrop-blur-sm p-4 animate-fade">
+    <div class="bg-white border-4 border-black rounded-2xl w-full max-w-2xl shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] overflow-hidden animate-pop max-h-[90vh] flex flex-col">
+        <div class="bg-black p-4 flex justify-between items-center shrink-0">
+            <h3 class="text-white font-black text-xl tracking-widest">🎨 PILIH TEMA</h3>
+            <button id="close-theme" class="text-white font-bold text-2xl hover:rotate-90 transition">&times;</button>
+        </div>
+        <div class="p-4 md:p-6 overflow-y-auto custom-scroll">
+            <div id="theme-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
+            <p class="text-center text-xs font-bold text-gray-400 mt-4">Tema tersimpan otomatis di perangkat ini</p>
+        </div>
+    </div>
+  </div>
 
   <script type="module" src="js/app.js"></script>
 </body>
