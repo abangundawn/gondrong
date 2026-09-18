@@ -63,7 +63,14 @@ export const MENU = [
   // ===== JAJANAN =====
   { id: 56, name: 'Jajanan', nickname: 'JAJANAN 🍘', desc: 'Keripik, Kerupuk, Emping dll.', price: 1000, category: 'Jajanan', img: './assets/jajanan.jpg', variants: null, active: true },
   // ===== GRATIS =====
-  { id: 57, name: 'Air Putih', nickname: 'AIRPUTIH 💧', desc: 'Air putih gratis', price: 0, category: 'Gratis', img: './assets/air-putih.jpg', variants: null, active: true },
+  {
+    id: 57, name: 'Air Putih', desc: 'Air putih gratis', price: 0, category: 'Gratis', img: './assets/air-putih.jpg', active: true,
+    variants: [
+      { name: 'Dingin', nickname: 'AIRPUTIH 🧊', desc: 'Air putih dingin', active: true },
+      { name: 'Panas', nickname: 'AIRPANAS 🍵', desc: 'Air putih panas', active: true },
+      { name: 'Es Kosong', nickname: 'ESKOSONG 🧊', desc: 'Es kosong', active: true }
+    ]
+  },
   // ===== GORENGAN =====
   { id: 22, name: 'Gorengan', nickname: 'GORENGAN 🍤', desc: 'Gorengan aneka, hitung per biji', price: 1000, category: 'Gorengan', img: './assets/gorengan.jpg', variants: null, active: false, custom_qty: true },
   // ===== TEH =====
@@ -99,7 +106,9 @@ export const MENU = [
       { name: 'Jeruk', nickname: 'JUSJER 🍊', desc: 'Jus jeruk murni', active: true },
       { name: 'Alpukat', nickname: 'JUSPUKAT 🥑', desc: 'Jus alpukat creamy', active: true },
       { name: 'Wortel', nickname: 'JUSWORT 🥕', desc: 'Jus wortel segar', active: true },
-      { name: 'Mangga', nickname: 'JUSMANGGA 🥭', desc: 'Jus mangga manis', active: true }
+      { name: 'Mangga', nickname: 'JUSMANGGA 🥭', desc: 'Jus mangga manis', active: true },
+      { name: 'Terong Belanda', nickname: 'JUSTER 🧃', desc: 'Jus terong belanda', active: false },
+      { name: 'Sirsak', nickname: 'JUSSIRSAK 🧃', desc: 'Jus sirsak segar', active: false }
     ]
   },
   // ===== SUP BUAH =====
