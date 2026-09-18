@@ -167,7 +167,7 @@ function addToCart(item, variantName, quantity = 1) {
     const badge = document.getElementById('cart-count');
     badge.classList.remove('animate-bounce-short'); void badge.offsetWidth; badge.classList.add('animate-bounce-short');
 }
-window.tryClearCart = () => { if(!cart.length && !els.custName.value.trim() && !els.note.value.trim()) return; showConfirm("HAPUS SEMUA?", "Yakin mau kosongin keranjang?", () => { cart = []; els.custName.value = ''; els.note.value = ''; cancelResume(); updateCart(); refreshNoteChips(); }); };
+window.tryClearCart = () => { if(!cart.length && !els.custName.value.trim() && !els.note.value.trim()) return; showConfirm("HAPUS SEMUA?", "Yakin mau kosongin keranjang?", () => { cart = []; els.custName.value = ''; els.note.value = ''; cancelResume(); updateCart(); refreshNoteChips(); saveForm(); }); };
 function cancelResume() { activeUnpaidId = null; localStorage.removeItem('active_unpaid_id'); setResumeUI(null); }
 window.removeCartItem = (id, v) => { playSound('click'); cart = cart.filter(x => !(x.id === id && x.variant === (v === 'null' ? null : v))); updateCart(); };
 window.editCartQty = (id, v, currentQty) => { playSound('click'); const vKey = v === 'null' ? null : v; const item = cart.find(x => x.id === id && x.variant === vKey); if(item) { editingItemData = { id, vKey }; elsEdit.itemName.innerText = `Edit: ${item.nickname || item.name}`; elsEdit.input.value = currentQty; elsEdit.modal.classList.remove('hidden'); setTimeout(() => elsEdit.input.select(), 100); } };
@@ -220,7 +220,7 @@ if (els.btnSave) els.btnSave.addEventListener('click', () => {
         playSound('success');
         showAlert("TERSIMPAN! 🍽️", `ANTRIAN: #${trxData.queueNo}\nStatus: BELUM BAYAR\nKlik kotak #${trxData.queueNo} buat checkout.`);
     }
-    cart = []; els.custName.value = ''; els.note.value = ''; updateCart(); renderUnpaidList(); refreshNoteChips();
+    cart = []; els.custName.value = ''; els.note.value = ''; updateCart(); renderUnpaidList(); refreshNoteChips(); saveForm();
 });
 
 // --- INDIKATOR RESUME HOLD UNPAID DI MY ORDER ---
@@ -267,7 +267,7 @@ window.resumeUnpaid = (id) => {
     activeUnpaidId = String(tx.id);
     localStorage.setItem('active_unpaid_id', activeUnpaidId);
     setResumeUI(tx.queueNo);
-    updateCart(); renderUnpaidList(); refreshNoteChips();
+    updateCart(); renderUnpaidList(); refreshNoteChips(); saveForm();
     document.getElementById('cart-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 window.deleteUnpaid = (id) => {
@@ -376,7 +376,7 @@ elsPay.btnFinal.addEventListener('click', async () => {
     }
     playSound('success'); elsPay.modal.classList.add('hidden'); 
     showAlert("LUNAS!", `ANTRIAN: #${trxData ? trxData.queueNo : '?'}\n${currentPaymentMethod === 'CASH' ? `Kembalian: ${fmt(customerInfo.change)}` : "QRIS Lunas!"}`); 
-    cart = []; els.custName.value = ''; els.note.value = ''; cancelResume(); elsPay.btnFinal.disabled = false; elsPay.btnFinal.innerText = "BAYAR & KIRIM 🚀"; updateCart(); renderUnpaidList(); refreshNoteChips();
+    cart = []; els.custName.value = ''; els.note.value = ''; cancelResume(); elsPay.btnFinal.disabled = false; elsPay.btnFinal.innerText = "BAYAR & KIRIM 🚀"; updateCart(); renderUnpaidList(); refreshNoteChips(); saveForm();
 });
 elsPay.btnClose.addEventListener('click', () => { playSound('click'); elsPay.modal.classList.add('hidden'); });
 
@@ -594,7 +594,11 @@ window.toggleNote = (btn) => {
 window.addNote = (text) => { playSound('click'); els.note.value = els.note.value ? `${els.note.value}, ${text}` : text; els.note.focus(); toggleNoteClear(); refreshNoteChips(); };
 window.clearNote = () => { playSound('click'); els.note.value = ''; els.note.focus(); toggleNoteClear(); refreshNoteChips(); };
 function toggleNoteClear() { const b = document.getElementById('note-clear'); if (b) b.classList.toggle('hidden', !els.note.value); }
-els.note.addEventListener('input', () => { toggleNoteClear(); refreshNoteChips(); });
+els.note.addEventListener('input', () => { toggleNoteClear(); refreshNoteChips(); saveForm(); });
+els.custName.addEventListener('input', saveForm);
+// --- FORM (nama + catatan) ikut tersimpan biar tahan reload ---
+function saveForm() { try { localStorage.setItem('bebyte_form', JSON.stringify({ name: els.custName.value, note: els.note.value })); } catch (e) {} }
+function restoreForm() { try { const f = JSON.parse(localStorage.getItem('bebyte_form') || '{}'); if (f.name) els.custName.value = f.name; if (f.note) els.note.value = f.note; } catch (e) {} }
 window.toggleFullscreen = () => { playSound('click'); if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(e=>console.log(e)); else if (document.exitFullscreen) document.exitFullscreen(); };
 
 document.addEventListener('keydown', (e) => {
@@ -669,7 +673,7 @@ document.getElementById('close-theme').addEventListener('click', window.closeThe
     if (adminLogo && CONFIG.LOGO) adminLogo.src = CONFIG.LOGO;
 })();
 
-renderMenu(); updateCart(); renderUnpaidList(); refreshNoteChips(); renderThemeGrid();
+renderMenu(); restoreForm(); updateCart(); renderUnpaidList(); refreshNoteChips(); toggleNoteClear(); renderThemeGrid();
 // Pulihkan indikator resume kalau reload saat hold lagi dibuka
 (function restoreResume() {
     if (!activeUnpaidId) return;
