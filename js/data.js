@@ -76,8 +76,6 @@ export const MENU = [
   // ===== KOPI =====
   { id: 30, name: 'Kopi Hitam', nickname: 'KOPIHIT ☕', desc: 'Kopi hitam pekat', price: 5000, category: 'Kopi', img: './assets/kopi.jpg', variants: null, active: true },
   { id: 31, name: 'Kopi Dingin', nickname: 'KOPDING 🧊', desc: 'Kopi dingin segar', price: 7000, category: 'Kopi', img: './assets/kopi-dingin.jpg', variants: null, active: true },
-  { id: 32, name: 'Cappuccino', nickname: 'CAPPU ☕', desc: 'Cappuccino creamy', price: 10000, category: 'Kopi', img: './assets/cappuccino.jpg', variants: null, active: true },
-  { id: 33, name: 'Kopi Susu', nickname: 'KOPSUS 🥛', desc: 'Kopi susu lembut', price: 10000, category: 'Kopi', img: './assets/kopi-susu.jpg', variants: null, active: true },
   // ===== ES KEKINIAN =====
   {
     id: 48, name: 'Es Kekinian', desc: 'Es kekinian segar', price: 10000, category: 'Es Kekinian', img: './assets/es.jpg', active: true,
@@ -107,6 +105,13 @@ export const MENU = [
       { name: 'Strawberry', nickname: 'SUPSTRO 🍓', desc: 'Sup buah strawberry segar', active: true }
     ]
   },
-  // ===== BANDREK =====
-  { id: 45, name: 'Bandrek', nickname: 'BANDREK 🫖', desc: 'Bandrek hangat rempah', price: 10000, category: 'Bandrek', img: './assets/bandrek.jpg', variants: null, active: true },
+  // ===== MINUMAN PANAS =====
+  {
+    id: 54, name: 'Minuman Panas', desc: 'Minuman panas penghangat', price: 10000, category: 'Minuman Panas', img: './assets/minuman-panas.jpg', active: true,
+    variants: [
+      { name: 'Bandrek', nickname: 'BANDREK 🫖', desc: 'Bandrek hangat rempah', active: true },
+      { name: 'Cappuccino', nickname: 'CAPPU ☕', desc: 'Cappuccino creamy', active: true },
+      { name: 'Kopi Susu', nickname: 'KOPSUS 🥛', desc: 'Kopi susu lembut', active: true }
+    ]
+  },
 ];
