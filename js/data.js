@@ -22,7 +22,8 @@ export const MENU = [
   },
   // ===== NASI =====
   { id: 4, name: 'Nasi Putih', nickname: 'NASPUT 🍚', desc: 'Nasi putih hangat', price: 3000, category: 'Nasi', img: './assets/nasi.jpg', variants: null, active: true },
-  { id: 5, name: 'Nasi Tumpeng', nickname: 'TUMPENG 🎉', desc: 'Nasi tumpeng komplit buat acara', price: 30000, category: 'Nasi', img: './assets/nasi-tumpeng.jpg', variants: null, active: true },
+  { id: 5, name: 'Nasi Tumpeng', nickname: 'TUMPENG 🎉', desc: 'Nasi tumpeng komplit buat acara', price: 300000, category: 'Nasi', img: './assets/nasi-tumpeng.jpg', variants: null, active: true },
+  { id: 55, name: 'Nasi Tumpeng Jumbo', nickname: 'TUMPENG JMB 🎉', desc: 'Nasi tumpeng jumbo porsi besar', price: 500000, category: 'Nasi', img: './assets/nasi-tumpeng-jumbo.jpg', variants: null, active: true },
   { id: 6, name: 'Nasi Goreng', nickname: 'NASGOR 🔥', desc: 'Nasi goreng spesial', price: 17000, category: 'Nasi', img: './assets/nasi-goreng.jpg', variants: null, active: true },
   // ===== AYAM =====
   {
@@ -52,14 +53,19 @@ export const MENU = [
     id: 53, name: 'Snacks Sultan', desc: 'Snack sultan favorit', price: 10000, category: 'Snacks', img: './assets/snacks.jpg', active: true,
     variants: [
       { name: 'Ceker Pedas', nickname: 'CEKER 🔥', desc: 'Ceker pedas nampol', active: true },
-      { name: 'Tahu Pong', nickname: 'TAHUPONG', desc: 'Tahu pong kopong gurih', active: true },
+      { name: 'Tahu Pong', nickname: 'TAHUPONG', desc: 'Tahu pong kopong gurih', active: false },
+      { name: 'Bola-bola Tahu Puyu', nickname: 'TAHUPUYU', desc: 'Bola-bola tahu isi telur puyuh', active: true },
       { name: 'Risol', nickname: 'RISOL 🥐', desc: 'Risol isi creamy', active: true }
     ]
   },
   { id: 19, name: 'Perkedel Kentang', nickname: 'PERKEDEL 🥔', desc: 'Perkedel kentang gurih', price: 3000, category: 'Snacks', img: './assets/perkedel.jpg', variants: null, active: true },
   { id: 20, name: 'Tempe Bacem', nickname: 'BACEM 🍯', desc: 'Tempe bacem manis legit', price: 5000, category: 'Snacks', img: './assets/tempe-bacem.jpg', variants: null, active: true },
+  // ===== JAJANAN =====
+  { id: 56, name: 'Jajanan', nickname: 'JAJANAN 🍘', desc: 'Keripik, Kerupuk, Emping dll.', price: 1000, category: 'Jajanan', img: './assets/jajanan.jpg', variants: null, active: true },
+  // ===== GRATIS =====
+  { id: 57, name: 'Air Putih', nickname: 'AIRPUTIH 💧', desc: 'Air putih gratis', price: 0, category: 'Gratis', img: './assets/air-putih.jpg', variants: null, active: true },
   // ===== GORENGAN =====
-  { id: 22, name: 'Gorengan', nickname: 'GORENGAN 🍤', desc: 'Gorengan aneka, hitung per biji', price: 1000, category: 'Gorengan', img: './assets/gorengan.jpg', variants: null, active: true, custom_qty: true },
+  { id: 22, name: 'Gorengan', nickname: 'GORENGAN 🍤', desc: 'Gorengan aneka, hitung per biji', price: 1000, category: 'Gorengan', img: './assets/gorengan.jpg', variants: null, active: false, custom_qty: true },
   // ===== TEH =====
   { id: 23, name: 'Teh Manis Panas', nickname: 'TEHPAN 🍵', desc: 'Teh manis panas', price: 5000, category: 'Teh', img: './assets/teh.jpg', variants: null, active: true },
   { id: 24, name: 'Teh Manis Dingin', nickname: 'TEHDING 🧊', desc: 'Teh manis dingin segar', price: 6000, category: 'Teh', img: './assets/teh-dingin.jpg', variants: null, active: true },
