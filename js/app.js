@@ -525,7 +525,7 @@ window.printReceipt = (id) => {
     storeShort = storeShort.slice(0, storeFs === 16 ? 16 : (storeFs === 13 ? 22 : 27));
     const storeHtml = `<div style="text-align:center;font-weight:900;font-size:${storeFs}px;line-height:1.3;">${esc(storeShort)}</div>`;
     let receiptTop = '';
-    receiptTop += '\n';
+    receiptTop += hr('=') + '\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
     const servName = (tx.customer && tx.customer.server) ? tx.customer.server : serverName;
     if (servName) receiptTop += wrap(`Serv:${servName}`) + '\n';
