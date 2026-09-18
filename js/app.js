@@ -300,11 +300,13 @@ els.btnSend.addEventListener('click', () => {
     elsPay.total.innerText = fmt(currentTotalBill); 
     tempCashString = ""; updateCashDisplay();
     renderQrisQr();
+    if (elsPay.btnQris) { elsPay.btnQris.disabled = currentTotalBill <= 0; elsPay.btnQris.classList.toggle('opacity-40', currentTotalBill <= 0); elsPay.btnQris.classList.toggle('cursor-not-allowed', currentTotalBill <= 0); }
     setMethod('CASH'); elsPay.modal.classList.remove('hidden'); 
 });
 
 window.setMethod = (type) => { 
     playSound('click'); 
+    if (type === 'QRIS' && currentTotalBill <= 0) { playSound('error'); return showAlert("NOL", "Total Rp 0, pakai CASH aja!"); }
     currentPaymentMethod = type; 
     
     if(type === 'CASH') { 
