@@ -52,7 +52,8 @@
       </div>
       <div class="flex gap-2 items-center">
           <div id="status-dot" class="w-4 h-4 rounded-full bg-green-500 border-2 border-white shadow shadow-black transition-colors" title="Online"></div>
-          <button id="btn-theme" class="bg-white border-2 border-black px-3 py-1 font-bold text-sm shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] rounded-lg transition-all active:scale-95" title="Ganti tema">🎨</button>
+          <button id="btn-theme" class="w-7 h-7 rounded-full bg-white border-2 border-black flex items-center justify-center text-sm shadow shadow-black hover:scale-110 active:scale-95 transition" title="Ganti tema">🎨</button>
+          <button id="btn-server" class="w-7 h-7 rounded-full bg-white border-2 border-black flex items-center justify-center text-sm shadow shadow-black hover:scale-110 active:scale-95 transition" title="Isi nama server">🧑</button>
           <button id="btn-stock-mode" onclick="toggleStockMode()" class="bg-bebyte-purple text-white border-2 border-black px-3 py-1 font-bold text-sm shadow-[3px_3px_0px_0px_black] hover:translate-y-[2px] rounded-lg transition active:scale-95">📦 Stok</button>
           <button id="btn-report" class="bg-white border-2 border-black px-3 py-1 font-bold text-sm shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] rounded-lg transition-all active:scale-95">🔒 Admin</button>
           <button onclick="toggleFullscreen()" class="bg-black text-white border-2 border-white px-3 py-1 font-bold text-sm rounded-lg ml-2 hover:bg-gray-800 active:scale-95" title="Fullscreen Mode">⛶</button>
@@ -300,6 +301,22 @@
         <div class="p-4 md:p-6 overflow-y-auto custom-scroll">
             <div id="theme-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
             <p class="text-center text-xs font-bold text-gray-400 mt-4">Tema tersimpan otomatis di perangkat ini</p>
+        </div>
+    </div>
+  </div>
+
+  <div id="modal-server" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[115] backdrop-blur-sm p-4 animate-fade">
+    <div class="bg-white border-4 border-black rounded-xl w-full max-w-xs shadow-[8px_8px_0px_0px_#FFE100] animate-pop">
+        <div class="bg-black p-3 flex justify-between items-center">
+            <h3 class="text-white font-black text-xl tracking-widest">🧑 SERVER</h3>
+            <button id="close-server" class="text-white font-bold text-2xl hover:rotate-90 transition">&times;</button>
+        </div>
+        <div class="p-6 space-y-4">
+            <div>
+                <label class="text-xs font-bold uppercase">Nama Server (Kasir/Pramusaji)</label>
+                <input id="server-name" type="text" class="w-full bg-white border-2 border-black rounded-lg px-3 py-2 font-bold text-sm uppercase focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-all mt-1" placeholder="Nama kamu...">
+            </div>
+            <button id="btn-save-server" class="w-full bg-bebyte-yellow border-2 border-black py-2 rounded-lg font-black text-lg shadow-[4px_4px_0px_0px_black] active:translate-y-[2px] active:shadow-none transition">SIMPAN ✅</button>
         </div>
     </div>
   </div>

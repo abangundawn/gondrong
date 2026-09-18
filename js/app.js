@@ -49,6 +49,8 @@ let currentPaymentMethod = 'CASH';
 let currentTotalBill = 0;
 let currentQtyItem = null;
 let activeUnpaidId = localStorage.getItem('active_unpaid_id') || null; // hold UNPAID yg lagi dibuka di MY ORDER
+let serverName = '';
+try { serverName = localStorage.getItem('bebyte_server') || ''; } catch (e) {}
 let reportPage = 1;
 const itemsPerPage = 5; 
 let isPrintingMode = false;
@@ -213,7 +215,7 @@ if (els.btnSave) els.btnSave.addEventListener('click', () => {
     const custName = els.custName.value.trim().toUpperCase();
     const rawNote = els.note.value.trim();
     const saveNote = rawNote;
-    const customerInfo = { name: custName, method: 'UNPAID', pay: 0, change: 0 };
+    const customerInfo = { name: custName, method: 'UNPAID', pay: 0, change: 0, server: serverName };
     const trxData = saveTransaction(itemsReport, total, saveNote, customerInfo, 'UNPAID');
     if (trxData) {
         sendUnpaidOrder(itemsReport, total, saveNote, trxData.queueNo, customerInfo).then(res => { if(!res.success) console.warn("Discord Log Fail"); });
@@ -362,7 +364,7 @@ elsPay.btnFinal.addEventListener('click', async () => {
     
     elsPay.btnFinal.disabled = true; elsPay.btnFinal.innerText = "SENDING..."; 
     const itemsReport = cart.map(i => ({ ...i, name: i.nickname || i.name })); 
-    const customerInfo = { name: els.custName.value.trim().toUpperCase(), method: currentPaymentMethod, pay: cash, change: cash - currentTotalBill }; 
+    const customerInfo = { name: els.custName.value.trim().toUpperCase(), method: currentPaymentMethod, pay: cash, change: cash - currentTotalBill, server: serverName }; 
     
     let trxData = null;
     if (activeUnpaidId) {
@@ -411,7 +413,7 @@ function renderReportTable() {
         const receiptBtn = isPrintingMode ? '' : `<button onclick="printReceipt('${tx.id}')" class="mt-1 bg-gray-800 text-white text-[9px] font-bold px-1 py-0.5 rounded hover:bg-black shadow active:scale-95 flex items-center gap-1 w-full justify-center">🧾 RESI 58mm</button>`;
         return `<tr class="${rowColor} border-b border-gray-200 hover:bg-gray-100 transition group"><td class="px-4 py-3 text-bebyte-purple align-top text-center"><div class="h-8 flex items-center justify-center">${queueDisplay}</div>${actionBtn}</td><td class="px-4 py-3 text-xs font-medium text-gray-500 align-top whitespace-nowrap">${new Date(tx.id).toLocaleTimeString('id-ID')}<br><span class="text-[10px]">${new Date(tx.id).toLocaleDateString('id-ID')}</span></td><td class="px-4 py-3 align-top"><div class="font-bold text-sm text-black uppercase truncate max-w-[120px]">${tx.customer.name}</div>${noteDisplay}</td><td class="px-4 py-3 align-top"><div class="max-h-[100px] overflow-y-auto custom-scroll pr-1">${itemsSummary}</div></td><td class="px-4 py-3 text-xs align-top text-center"><div class="h-8 flex items-center justify-center">${methodBadge}</div>${payBtn}${finishBtn}</td><td class="px-4 py-3 text-sm font-bold text-black text-right align-top"><div class="h-8 flex items-center justify-end">${fmt(tx.total)}</div>${receiptBtn}</td></tr>`;
     }).join('');
-    const summaryHtml = `<div class="report-summary mt-8 pt-4 border-t-4 border-black grid grid-cols-2 gap-4 break-inside-avoid"><div class="leading-tight text-center"><h3 class="font-black text-lg uppercase mb-2">Ringkasan Penjualan</h3><p class="text-sm font-bold text-gray-600">Total Transaksi: <span class="text-black text-lg">${data.totalTrx}</span>${(data.finishedCount > 0) ? ` &nbsp; <span class="text-green-600">Selesai: ${data.finishedCount}</span>` : ''}</p>${(data.unpaidCount > 0) ? `<p class="text-sm font-bold text-red-600">Belum bayar: ${data.unpaidCount} (${fmt(data.unpaidTotal)})</p>` : ''}<p class="text-sm font-bold text-blue-600">Hari ini ${data.todayCount} Transaksi (${fmt(data.todayOmset)})</p></div><div class="text-right"><p class="text-sm font-bold text-gray-600 uppercase">Total Omset</p><h2 class="font-black text-4xl text-bebyte-purple">${fmt(data.totalOmset)}</h2></div></div>${isPrintingMode ? '<div class="mt-8 text-center text-xs font-bold text-gray-400">--- End of Report ---</div>' : ''}`;
+    const summaryHtml = `<div class="report-summary mt-8 pt-4 border-t-4 border-black grid grid-cols-2 gap-4 break-inside-avoid"><div class="leading-tight text-center"><h3 class="font-black text-lg uppercase mb-2">Ringkasan Penjualan</h3><p class="text-sm font-bold text-gray-600">Total Transaksi: <span class="text-black text-lg">${data.totalTrx}</span>${(data.finishedCount > 0) ? ` &nbsp; <span class="text-green-600">Selesai: ${data.finishedCount}</span>` : ''}</p>${(data.unpaidCount > 0) ? `<p class="text-sm font-bold text-red-600">Belum bayar: ${data.unpaidCount} (${fmt(data.unpaidTotal)})</p>` : ''}<p class="text-sm font-bold text-blue-600">Hari ini ${data.todayCount} Transaksi (${fmt(data.todayOmset)})</p></div><div class="text-right"><p class="text-sm font-bold text-gray-600 uppercase">Total Omset</p><h2 class="font-black text-4xl text-bebyte-purple">${fmt(data.totalOmset)}</h2></div></div>${isPrintingMode ? `<div class="mt-8 text-center break-inside-avoid"><p class="text-sm font-bold">ttd Server ${serverName || '-'}</p><div style="height:60px"></div><p class="text-xs font-bold">( .............................. )</p></div><div class="mt-8 text-center text-xs font-bold text-gray-400">--- End of Report ---</div>` : ''}`;
     const containerClass = isPrintingMode ? "" : "max-h-[50vh] overflow-y-auto custom-scroll border border-gray-200 rounded-lg";
     els.reportContent.innerHTML = `${headerHtml}<div class="${containerClass}"><table class="w-full">${tableHeader}<tbody>${tableRows || '<tr><td colspan="6" class="p-4 text-center text-gray-400">Belum ada data</td></tr>'}</tbody></table></div>${isPrintingMode ? summaryHtml : paginationControls}`;
 }
@@ -465,7 +467,7 @@ if (els.btnRestore && els.inputRestore) {
 }
 
 // --- EXTRAS ---
-window.notifyDone = (qNo, cName) => { showConfirm("PANGGIL PEMBELI?", `Kirim notif ke Discord antrian #${qNo} selesai?`, () => { sendOrderDone(qNo, cName); playSound('success'); showAlert("TERKIRIM! 📢", `Notif #${qNo} sent.`); }); };
+window.notifyDone = (qNo, cName) => { showConfirm("PANGGIL PEMBELI?", `Kirim notif ke Discord antrian #${qNo} selesai?`, () => { sendOrderDone(qNo, cName, serverName); playSound('success'); showAlert("TERKIRIM! 📢", `Notif #${qNo} sent.`); }); };
 // --- PRINT RESI THERMAL 58mm DARI HISTORY ---
 window.printReceipt = (id) => {
     playSound('click');
@@ -480,7 +482,6 @@ window.printReceipt = (id) => {
     const cleanRp = (v) => fmt(Number(v) || 0).replace(/\u00A0/g, ' ');
     const hr = (ch = '=') => esc(pad(ch.repeat(W)));
     const center = (t) => { t = String(t).slice(0, W); const sp = Math.max(0, Math.floor((W - t.length) / 2)); return esc(pad(' '.repeat(sp) + t)); };
-    const centerBold = (t) => { t = String(t); const fs = t.length <= 16 ? 16 : (t.length <= 22 ? 13 : 11); const maxCh = fs === 16 ? 16 : (fs === 13 ? 22 : 27); t = t.slice(0, maxCh); const sp = Math.max(0, Math.floor((W - t.length) / 2)); return '  ' + ' '.repeat(sp) + `<span style="font-size:${fs}px;font-weight:900;">` + esc(t) + '</span>'; };
     const row = (l, r) => { l = String(l); r = String(r); let space = W - l.length - r.length; if (space < 1) { l = l.slice(0, W - r.length - 1); space = 1; } return esc(pad(l + ' '.repeat(space) + r)); };
     const rowBold = (l, r) => { l = String(l); r = String(r); let space = W - l.length - r.length; if (space < 1) { l = l.slice(0, W - r.length - 1); space = 1; } return '<b>' + esc(pad(l + ' '.repeat(space) + r)) + '</b>'; };
     const rowRightBold = (l, r) => { l = String(l); r = String(r); let space = W - l.length - r.length; if (space < 1) { l = l.slice(0, W - r.length - 1); space = 1; } return esc('  ' + l + ' '.repeat(space)) + '<b>' + esc(r) + '</b>'; };
@@ -516,10 +517,18 @@ window.printReceipt = (id) => {
         if (space < 1) { l = l.slice(0, W - r.length - 1); space = 1; }
         custQueueLine = esc('  ' + l + ' '.repeat(space)) + '<b>' + esc(r) + '</b>';
     }
+    let receiptHead = '';
+    receiptHead += row('+', '+') + '\n'; // penanda sudut kiri-kanan atas, korban clipping PrintA
+    // Nama toko center pakai CSS (bukan spasi) biar titik tengah presisi walau fontnya lebih besar
+    let storeShort = String(store);
+    const storeFs = storeShort.length <= 16 ? 16 : (storeShort.length <= 22 ? 13 : 11);
+    storeShort = storeShort.slice(0, storeFs === 16 ? 16 : (storeFs === 13 ? 22 : 27));
+    const storeHtml = `<div style="text-align:center;font-weight:900;font-size:${storeFs}px;line-height:1.3;">${esc(storeShort)}</div>`;
     let receiptTop = '';
-    receiptTop += row('+', '+') + '\n'; // penanda sudut kiri-kanan atas, korban clipping PrintA
-    receiptTop += centerBold(store) + '\n\n';
+    receiptTop += '\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
+    const servName = (tx.customer && tx.customer.server) ? tx.customer.server : serverName;
+    if (servName) receiptTop += wrap(`Serv:${servName}`) + '\n';
     receiptTop += custQueueLine + '\n';
     receiptTop += hr('=') + '\n';
     receiptTop += itemLines + '\n';
@@ -545,7 +554,7 @@ window.printReceipt = (id) => {
     receiptBottom += wrap(`Print:${nowPrint}`) + '\n';
     receiptBottom += row('+', '+'); // penanda sudut kiri-kanan bawah, korban clipping PrintA
     const printArea = document.getElementById('print-area');
-    printArea.innerHTML = `<div class="thermal-receipt"><pre>${receiptTop}</pre>${qrBlock}<pre>${receiptBottom}</pre></div>`;
+    printArea.innerHTML = `<div class="thermal-receipt"><pre>${receiptHead}</pre>${storeHtml}<pre>${receiptTop}</pre>${qrBlock}<pre>${receiptBottom}</pre></div>`;
     printArea.classList.add('receipt-mode'); // pakai @page receipt58 bila didukung browser
     const cleanup = () => { printArea.innerHTML = ''; printArea.classList.remove('receipt-mode'); window.removeEventListener('afterprint', cleanup); };
     window.addEventListener('afterprint', cleanup);
@@ -602,7 +611,7 @@ function restoreForm() { try { const f = JSON.parse(localStorage.getItem('bebyte
 window.toggleFullscreen = () => { playSound('click'); if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(e=>console.log(e)); else if (document.exitFullscreen) document.exitFullscreen(); };
 
 document.addEventListener('keydown', (e) => {
-    if (e.key === "Escape") { els.modalVariant.classList.add('hidden'); elsPay.modal.classList.add('hidden'); elsQty.modal.classList.add('hidden'); elsEdit.modal.classList.add('hidden'); els.alertModal.classList.add('hidden'); els.modalReport.classList.add('hidden'); const _tm = document.getElementById('modal-theme'); if (_tm && !_tm.classList.contains('hidden')) window.closeTheme(); }
+    if (e.key === "Escape") { els.modalVariant.classList.add('hidden'); elsPay.modal.classList.add('hidden'); elsQty.modal.classList.add('hidden'); elsEdit.modal.classList.add('hidden'); els.alertModal.classList.add('hidden'); els.modalReport.classList.add('hidden'); const _tm = document.getElementById('modal-theme'); if (_tm && !_tm.classList.contains('hidden')) window.closeTheme(); const _sv = document.getElementById('modal-server'); if (_sv && !_sv.classList.contains('hidden')) window.closeServer(); }
     if (e.key === "F2") { e.preventDefault(); els.custName.focus(); }
 });
 window.addEventListener('beforeunload', (e) => { if (cart.length > 0) { e.preventDefault(); e.returnValue = ''; } });
@@ -656,6 +665,23 @@ window.closeTheme = () => { playSound('click'); const m = document.getElementByI
 document.getElementById('btn-theme').addEventListener('click', window.openTheme);
 document.getElementById('close-theme').addEventListener('click', window.closeTheme);
 
+// --- NAMA SERVER (Kasir/Pramusaji): tampil di Discord + resi ---
+function updateServerBtn() {
+    const b = document.getElementById('btn-server');
+    if (!b) return;
+    const has = !!serverName;
+    b.classList.toggle('bg-bebyte-green', has);
+    b.classList.toggle('bg-white', !has);
+    b.title = has ? `Server: ${serverName}` : 'Isi nama server';
+}
+window.openServer = () => { playSound('click'); const i = document.getElementById('server-name'); if (i) { i.value = serverName; setTimeout(() => i.select(), 50); } const m = document.getElementById('modal-server'); m.classList.remove('hidden'); m.classList.add('flex'); };
+window.closeServer = () => { playSound('click'); const m = document.getElementById('modal-server'); m.classList.add('hidden'); m.classList.remove('flex'); };
+window.saveServer = () => { playSound('click'); const i = document.getElementById('server-name'); serverName = (i ? i.value : '').trim().toUpperCase(); try { localStorage.setItem('bebyte_server', serverName); } catch (e) {} updateServerBtn(); window.closeServer(); };
+document.getElementById('btn-server').addEventListener('click', window.openServer);
+document.getElementById('close-server').addEventListener('click', window.closeServer);
+document.getElementById('btn-save-server').addEventListener('click', window.saveServer);
+document.getElementById('server-name').addEventListener('keydown', (e) => { if (e.key === 'Enter') window.saveServer(); });
+
 // --- HERO DARI CONFIG (data.js) ---
 (function bindHero() {
     const ev = document.getElementById('hero-event');
@@ -673,7 +699,7 @@ document.getElementById('close-theme').addEventListener('click', window.closeThe
     if (adminLogo && CONFIG.LOGO) adminLogo.src = CONFIG.LOGO;
 })();
 
-renderMenu(); restoreForm(); updateCart(); renderUnpaidList(); refreshNoteChips(); toggleNoteClear(); renderThemeGrid();
+renderMenu(); restoreForm(); updateCart(); renderUnpaidList(); refreshNoteChips(); toggleNoteClear(); renderThemeGrid(); updateServerBtn();
 // Pulihkan indikator resume kalau reload saat hold lagi dibuka
 (function restoreResume() {
     if (!activeUnpaidId) return;
