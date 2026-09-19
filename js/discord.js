@@ -83,7 +83,7 @@ export async function sendOrderDone(queueNo, customerName, server) {
       embeds: [
         {
           title: `✅ ORDER #${queueNo} SIAP DIAMBIL!`,
-          description: `Halo **${customerName}**, pesananmu sudah jadi nih.\nSilakan ambil di booth ya!\n\nSalam manis dari Server ${serverName}`,
+          description: `Halo **${customerName}**, pesananmu sudah jadi nih.\nSilakan ambil di booth ya! @here\n\nSalam manis dari Server ${serverName}`,
           color: 5763719, // Hijau (Sukses)
           timestamp: new Date().toISOString()
         }
