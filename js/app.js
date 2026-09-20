@@ -526,7 +526,7 @@ window.printReceipt = (id) => {
     const storeFs = storeShort.length <= 16 ? 16 : (storeShort.length <= 22 ? 13 : 11);
     storeShort = storeShort.slice(0, storeFs === 16 ? 16 : (storeFs === 13 ? 22 : 27));
     const storeHtml = `<div style="text-align:center;font-weight:900;font-size:${storeFs}px;line-height:1.3;">${esc(storeShort)}</div>`;
-    const logoHtml = (CONFIG.LOGO) ? `<div style="text-align:center;margin:2px 0;"><img src="${CONFIG.LOGO}" style="width:60px;height:auto;" onerror="this.parentNode.remove()"></div>` : '';
+    const logoHtml = (CONFIG.LOGO) ? `<div style="text-align:center;margin:2px 0;"><img src="${CONFIG.LOGO}" style="width:40px;height:auto;" onerror="this.parentNode.remove()"></div>` : '';
     let receiptTop = '';
     receiptTop += hr('=') + '\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
@@ -548,7 +548,7 @@ window.printReceipt = (id) => {
     let qrBlock = '';
     if (isQrisPaid) {
         const qrUrl = qrisQrDataUrlFor(total);
-        if (qrUrl) qrBlock = `<div style="padding-left:12px;margin:2px 0;"><img src="${qrUrl}" style="width:168px;height:168px;image-rendering:pixelated;display:block;"></div>`;
+        if (qrUrl) qrBlock = `<div style="padding-left:12px;margin:2px 0;"><img class="qr-img" src="${qrUrl}" style="width:168px;height:168px;image-rendering:pixelated;display:block;"></div>`;
     }
     let receiptBottom = '';
     if (tx.note) receiptBottom += wrap(`Note:${tx.note}`) + '\n';
