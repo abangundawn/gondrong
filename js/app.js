@@ -244,9 +244,9 @@ function renderUnpaidList() {
     if (!list.length) { box.innerHTML = `<p class="col-span-3 text-center text-gray-400 text-xs font-bold italic py-4">Belum ada hold...</p>`; return; }
     box.innerHTML = list.map(tx => {
         const isActive = activeUnpaidId && String(activeUnpaidId) === String(tx.id);
-        return `<div onclick="resumeUnpaid('${tx.id}')" class="relative cursor-pointer border-2 ${isActive ? 'border-green-500 bg-green-50' : 'border-black bg-bebyte-yellow'} rounded-lg p-2 text-center shadow-[2px_2px_0px_0px_black] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_black] transition active:scale-95">
+        return `<div onclick="resumeUnpaid('${tx.id}')" class="relative cursor-pointer border-2 ${isActive ? 'border-green-500 bg-green-50' : 'border-black bg-bebyte-yellow'} rounded-lg p-1.5 text-center shadow-[2px_2px_0px_0px_black] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_black] transition active:scale-95 min-w-0 overflow-hidden">
             <button onclick="event.stopPropagation(); deleteUnpaid('${tx.id}')" class="absolute -top-2 -right-2 w-5 h-5 bg-red-600 text-white text-[10px] font-black rounded-full border border-black leading-none" title="Hapus hold">×</button>
-            <div class="font-black text-lg ${isActive ? 'text-green-700' : 'text-bebyte-purple'}">#${tx.queueNo || String(tx.id).slice(-4)}</div>
+            <div class="font-black text-base ${isActive ? 'text-green-700' : 'text-bebyte-purple'}">#${tx.queueNo || String(tx.id).slice(-4)}</div>
             <div class="text-[10px] font-bold uppercase truncate">${tx.customer ? tx.customer.name : '-'}</div>
             <div class="text-[10px] font-black">${fmt(tx.total)}</div>
             ${isActive ? '<div class="text-[9px] font-black text-green-600">● DIBUKA</div>' : ''}
