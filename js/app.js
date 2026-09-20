@@ -526,6 +526,7 @@ window.printReceipt = (id) => {
     const storeFs = storeShort.length <= 16 ? 16 : (storeShort.length <= 22 ? 13 : 11);
     storeShort = storeShort.slice(0, storeFs === 16 ? 16 : (storeFs === 13 ? 22 : 27));
     const storeHtml = `<div style="text-align:center;font-weight:900;font-size:${storeFs}px;line-height:1.3;">${esc(storeShort)}</div>`;
+    const logoHtml = (CONFIG.LOGO) ? `<div style="text-align:center;margin:2px 0;"><img src="${CONFIG.LOGO}" style="width:120px;height:auto;" onerror="this.parentNode.remove()"></div>` : '';
     let receiptTop = '';
     receiptTop += hr('=') + '\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
@@ -556,20 +557,20 @@ window.printReceipt = (id) => {
     receiptBottom += wrap(`Print:${nowPrint}`) + '\n';
     receiptBottom += row('+', '+'); // penanda sudut kiri-kanan bawah, korban clipping PrintA
     const printArea = document.getElementById('print-area');
-    printArea.innerHTML = `<div class="thermal-receipt"><pre>${receiptHead}</pre>${storeHtml}<pre>${receiptTop}</pre>${qrBlock}<pre>${receiptBottom}</pre></div>`;
+    printArea.innerHTML = `<div class="thermal-receipt"><pre>${receiptHead}</pre>${logoHtml}${storeHtml}<pre>${receiptTop}</pre>${qrBlock}<pre>${receiptBottom}</pre></div>`;
     printArea.classList.add('receipt-mode'); // pakai @page receipt58 bila didukung browser
     const cleanup = () => { printArea.innerHTML = ''; printArea.classList.remove('receipt-mode'); window.removeEventListener('afterprint', cleanup); };
     window.addEventListener('afterprint', cleanup);
-    // Tunggu gambar QR selesai di-decode dulu baru print (kalau langsung, pratinjau ke-snapshot duluan -> QR blank)
-    const qrImg = printArea.querySelector('.thermal-receipt img');
+    // Tunggu semua gambar (logo + QR) selesai di-decode dulu baru print
+    const pendingImgs = [...printArea.querySelectorAll('.thermal-receipt img')].filter(i => !i.complete);
     const doPrint = () => window.print();
-    if (qrImg && !qrImg.complete) {
+    if (!pendingImgs.length) {
+        doPrint();
+    } else {
         let printed = false;
         const go = () => { if (!printed) { printed = true; doPrint(); } };
-        qrImg.onload = go; qrImg.onerror = go;
+        pendingImgs.forEach(i => { i.onload = go; i.onerror = go; });
         setTimeout(go, 1500);
-    } else {
-        doPrint();
     }
     setTimeout(() => { if (printArea.innerHTML) cleanup(); }, 5000);
 };
