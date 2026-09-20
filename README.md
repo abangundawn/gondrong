@@ -114,6 +114,8 @@ Contoh menu dengan varian:
 ```
 
 > Catatan: `WEBHOOK_URL` adalah kredensial privat — jangan commit URL asli ke repo publik, pakai URL webhook milik sendiri.
+>
+> Mau edit config tanpa buka kode? Pakai tool editornya: **https://darojatun.github.io/BeByte-data/**
 
 ## 📈 Pengembangan Selanjutnya
 
