@@ -526,7 +526,7 @@ window.printReceipt = (id) => {
     const storeFs = storeShort.length <= 16 ? 16 : (storeShort.length <= 22 ? 13 : 11);
     storeShort = storeShort.slice(0, storeFs === 16 ? 16 : (storeFs === 13 ? 22 : 27));
     const storeHtml = `<div style="text-align:center;font-weight:900;font-size:${storeFs}px;line-height:1.3;">${esc(storeShort)}</div>`;
-    const logoHtml = (CONFIG.LOGO) ? `<div style="text-align:center;margin:2px 0;"><img src="${CONFIG.LOGO}" style="width:40px;height:auto;" onerror="this.parentNode.remove()"></div>` : '';
+    const logoHtml = (CONFIG.LOGO) ? `<div style="text-align:center;margin:2px 0;"><img src="${CONFIG.LOGO}" style="display:block;margin:0 auto;width:40px;height:auto;" onerror="this.parentNode.remove()"></div>` : '';
     let receiptTop = '';
     receiptTop += hr('=') + '\n';
     receiptTop += wrap(`Date:${dateStr}`) + '\n';
