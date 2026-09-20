@@ -89,7 +89,8 @@ export const CONFIG = {
   RECEIPT_LOGO: false, // true = logo tampil di resi (khusus printer yg dukung cetak gambar)
   RECEIPT_FOOTER: 'Terima Kasih',
   QRIS_STATIC: '00020101...6304XXXX', // QRIS statis merchant (hasil scan, bukan ketikan)
-  DISCORD: true, // false = matikan Discord, tombol PANGGIL jadi "x discord"  WEBHOOK_URL: 'https://discordapp.com/api/webhooks/...',
+  DISCORD: true, // false = matikan Discord, tombol PANGGIL jadi "✖ discord"
+  WEBHOOK_URL: 'https://discordapp.com/api/webhooks/...',
   ROLE_ID_DAPUR: '...'
 };
 ```
