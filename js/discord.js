@@ -4,6 +4,7 @@ const fmt = (v) => new Intl.NumberFormat('id-ID', { style: 'currency', currency:
 
 // --- FUNGSI 1: KIRIM ORDER BARU (PING DAPUR) ---
 export async function sendToDiscord(cart, total, note, queueNo, customerInfo) {
+  if (CONFIG.DISCORD === false) return { success: false };
   if (!CONFIG.WEBHOOK_URL) return { success: false };
 
   let itemsList = cart.map(i => `• **${i.qty}x** ${i.name}`).join('\n');
@@ -40,6 +41,7 @@ export async function sendToDiscord(cart, total, note, queueNo, customerInfo) {
 
 // --- FUNGSI 2: KIRIM ORDER SAVE/UNPAID (DINE IN, BELUM BAYAR) ---
 export async function sendUnpaidOrder(cart, total, note, queueNo, customerInfo) {
+  if (CONFIG.DISCORD === false) return { success: false };
   if (!CONFIG.WEBHOOK_URL) return { success: false };
 
   let itemsList = cart.map(i => `• **${i.qty}x** ${i.name}`).join('\n');
@@ -74,6 +76,7 @@ export async function sendUnpaidOrder(cart, total, note, queueNo, customerInfo) 
 
 // --- FUNGSI 3: KIRIM NOTIFIKASI SELESAI ---
 export async function sendOrderDone(queueNo, customerName, server) {
+    if (CONFIG.DISCORD === false) return;
     if (!CONFIG.WEBHOOK_URL) return;
     const serverName = (server && String(server).trim().length > 0) ? server : '-';
   
