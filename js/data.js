@@ -1,5 +1,4 @@
 export const CONFIG = {
-  WEBHOOK_URL: 'https://discordapp.com/api/webhooks/1549712999718064189/OruERz20gxzaYDHGLzBl6iDPa0tvtDhPCyrQTST_Q9Uuyx_XLJ9ioNjsxpcdcPyfFOPQ', 
   STORE_NAME: 'D`Abi Coffee & Resto',
   EVENT_NAME: 'D`Abi Coffee & Resto🎉',
   TAG_LINE: '🛋️Nongkrong 🍽️Makan 🥤Minum 🎤Karaoke 🎮Mabar 📺Nobar 📶Free WiFi',
@@ -10,6 +9,7 @@ export const CONFIG = {
   RECEIPT_FOOTER: '-= Terima Kasih =-',
   QRIS_STATIC: '00020101021126590013ID.CO.BNI.WWW011893600009150433543102096015339410303UME51440014ID.CO.QRIS.WWW0215ID10254422482050303UME5204581453033605802ID5922D ABI COFFEE AND RESTO6015PADANGSIDIMPUAN61052272762070703A01630467B2',
   DISCORD: true, // false = matikan semua kiriman ke Discord (opsional, seperti README creator)
+  WEBHOOK_URL: 'https://discordapp.com/api/webhooks/1549712999718064189/OruERz20gxzaYDHGLzBl6iDPa0tvtDhPCyrQTST_Q9Uuyx_XLJ9ioNjsxpcdcPyfFOPQ', 
   ROLE_ID_DAPUR: '1549712082122055760' 
 };
 export const MENU = [
