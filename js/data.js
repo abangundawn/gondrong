@@ -2,7 +2,7 @@ export const CONFIG = {
   STORE_NAME: 'D`Abi Coffee & Resto',
   EVENT_NAME: 'D`Abi Coffee & Resto🎉',
   TAG_LINE: '🛋️Nongkrong 🍽️Makan 🥤Minum 🎤Karaoke 🎮Mabar 📺Nobar 📶Free WiFi',
-  VERSION: '2026',
+  VERSION: 'D`Abi',
   MASCOT: 'assets/qr.dc.d-abi.png',
   LOGO: 'assets/d-abi-logo.png',
   RECEIPT_LOGO: false, // true = tampilkan logo di resi (khusus printer yg dukung cetak gambar)
