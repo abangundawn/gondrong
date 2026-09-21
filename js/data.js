@@ -63,7 +63,21 @@ export const MENU = [
   { id: 19, name: 'Perkedel Kentang', nickname: 'PERKEDEL 🥔', desc: 'Perkedel kentang gurih', price: 3000, category: 'Snacks', img: 'assets/perkedel.jpg', variants: null, active: true },
   { id: 20, name: 'Tempe Bacem', nickname: 'BACEM 🍯', desc: 'Tempe bacem manis legit', price: 5000, category: 'Snacks', img: 'assets/tempe-bacem.jpg', variants: null, active: true },
   // ===== JAJANAN =====
-  { id: 56, name: 'Jajanan', nickname: 'JAJANAN 🍘', desc: 'Keripik, Kerupuk, Emping dll.', price: 1000, category: 'Jajanan', img: 'assets/jajanan.jpg', variants: null, active: true },
+  {
+    id: 56, name: 'Jajanan', desc: 'Aneka jajanan', price: 1000, category: 'Jajanan', img: 'assets/jajanan.jpg', active: true,
+    variants: [
+      { name: 'Emping Melinjo', nickname: 'EMPING', desc: 'Emping melinjo gurih', active: true },
+      { name: 'Keripik Sambal', nickname: 'KRIPIK 🌶️', desc: 'Keripik sambal pedas', active: true },
+      { name: 'Kerupuk Udang', nickname: 'KRUPUK 🍤', desc: 'Kerupuk udang renyah', active: true },
+      { name: 'Kerupuk Jengkol', nickname: 'JENGKOL', desc: 'Kerupuk jengkol gurih', active: true },
+      { name: 'Rempeyek', nickname: 'REMPEYEK 🥜', desc: 'Rempeyek kacang renyah', active: true },
+      { name: 'Kacang Goreng', nickname: 'KACANG 🥜', desc: 'Kacang goreng gurih', active: true },
+      { name: 'Kue Bawang', nickname: 'KUEBAWANG 🧅', desc: 'Kue bawang renyah', active: true },
+      { name: 'Kerupuk Jangek', nickname: 'JANGEK', desc: 'Kerupuk jangek gurih', active: true },
+      { name: 'Alen-alen', nickname: 'ALEN', desc: 'Alen-alen gurih', active: false },
+      { name: 'Kacang Tojen', nickname: 'TOJEN 🥜', desc: 'Kacang tojen gurih', active: true }
+    ]
+  },
   // ===== GRATIS =====
   {
     id: 57, name: 'Air Putih', desc: 'Air putih gratis', price: 0, category: 'Gratis', img: 'assets/air-putih.jpg', active: true,
